@@ -19,6 +19,8 @@ services:
     restart: unless-stopped
     expose:
       - 9100
+    ports:
+      - 9100:9100
     networks:
       - monitor-net
     labels:
@@ -31,12 +33,13 @@ services:
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker:/var/lib/docker:ro
-      #- /cgroup:/cgroup:ro #doesn't work on MacOS only for Linux
-    command:
-      - '--port 9280'
+      # comment out for macos   
+      - /cgroup:/cgroup:ro
+    expose: 
+      - 8080
+    ports:
+      - 9280:8080
     restart: unless-stopped
-    expose:
-      - 9280
     networks:
       - monitor-net
     labels:
